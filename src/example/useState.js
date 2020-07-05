@@ -58,23 +58,7 @@ export default class StateComponent extends React.Component {
 // export default function StateFunctionComponent() {
 export function StateFunctionComponent() {
   // TODO:  name & age 
-  const [name, setName] = useState('corin')
-  const [age, setAge] = useState(20)
-  const handleNameChange = (e) => {
-    setName(e.target.value)
-  }
-
-  const handleAgeChange = () => {
-    setAge(c => c + 1)
-    setAge(c => c + 1)
-    setAge(c => c + 1)
-    console.log('Before', age)
-  }
-
-  useEffect(() => {
-    console.log(age)
-    
-  }, [age])
+  
 
   return (
     <Fragment>
