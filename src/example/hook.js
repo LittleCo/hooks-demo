@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useContext, Fragment } from 'react'
 import { ThemeContext, LocaleContext } from '../context';
 
-export class StateComponent extends React.Component {
-  // export default class StateComponent extends React.Component {
+// export class StateComponent extends React.Component {
+  export default class StateComponent extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -94,26 +94,18 @@ export class StateComponent extends React.Component {
 }
 
 
-export default function StateFunctionComponent() {
-  // export function StateFunctionComponent() {
+// export default function StateFunctionComponent() {
+  export function StateFunctionComponent() {
   // TODO:  name & age change
 
   // TODO: update document title with name & age
 
-
   // TODO: useEffect()  width resize 
 
-
-
   // TODO: refactor with customHooks
-  const name = useFormInput('corin')
-  const age = useFormInput(21)
-  const width = useWindowWidth(window.innerWidth)
-  useDocumentTitle(name.value + ' | ' + age.value)
 
   // TODO: use Context
-  const { theme } = useContext(ThemeContext)
-  const { locale } = useContext(LocaleContext)
+
 
   return (
     <Fragment>
@@ -121,56 +113,21 @@ export default function StateFunctionComponent() {
         <span>Name</span>
         <input
           type='text'
-          {...name}
         />
       </section>
       <section className='row'>
         <span>Age</span>
         <input
           type='text'
-          {...age}
         />
       </section>
       <section className='row'>
         <span>Width</span>
         <input
           type='text'
-          value={width}
-          disabled
-        />
-      </section>
-      <section className={`row ${theme.dark}`}>
-        <span>Local</span>
-        <input
-          type='text'
-          value={locale.local}
           disabled
         />
       </section>
     </Fragment>
   )
-}
-
-export function useDocumentTitle(title) {
-  useEffect(() => {
-    document.title = title
-  })
-}
-
-export function useFormInput(initialState) {
-  const [value, setValue] = useState(initialState)
-  function handleChange(e) {
-    setValue(e.target.value)
-  }
-  return { value, onChange: handleChange }
-}
-
-export function useWindowWidth() {
-  const [width, setWidth] = useState(window.innerWidth)
-  const handleResizeWindow = () => { setWidth(window.innerWidth) }
-  useEffect(() => {
-    window.addEventListener('resize', handleResizeWindow)
-    return () => { window.removeEventListener('resize', handleResizeWindow) }
-  })
-  return width
 }
