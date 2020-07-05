@@ -6,10 +6,27 @@ export default class StateComponent extends React.Component {
     super(props)
     this.state = {
       name: 'Corin',
-      age: 21
+      age: 21,
+      width: window.innerWidth
     }
     this.handleNameChange = this.handleNameChange.bind(this)
     this.handleAgeChange = this.handleAgeChange.bind(this)
+    this.handleWindowResize = this.handleWindowResize.bind(this)
+  }
+
+  componentDidMount() {
+    const { name, age } = this.state
+    document.title = `${name} | ${age}`
+    window.addEventListener('resize', this.handleWindowResize)
+  }
+
+  componentDidUpdate() {
+    const { name, age } = this.state
+    document.title = `${name} | ${age}`
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.handleWindowResize)
   }
 
   handleNameChange(e) {
@@ -19,22 +36,22 @@ export default class StateComponent extends React.Component {
   }
 
   handleAgeChange() {
-
     this.setState({
       age: this.state.age + 1
     })
-
     // pass callback function 
-    this.setState((state) => ({ age: state.age + 1}))
-    this.setState((state) => ({ age: state.age + 1}))
-    this.setState((state) => ({ age: state.age + 1}))
-    
     console.log('Before', this.state.age)
   }
 
 
+  handleWindowResize() {
+    this.setState({ width: window.innerWidth })
+  }
+
+
+
   render() {
-    const { name } = this.state;
+    const { name, age, width } = this.state;
     return (
       <Fragment>
         <section className='row'>
@@ -46,8 +63,16 @@ export default class StateComponent extends React.Component {
           />
         </section>
         <section className='row'>
-          <span>Age: {this.state.age} </span>  
+          <span>Age: {age} </span>
           <button onClick={this.handleAgeChange}>Increment </button>
+        </section>
+        <section className='row'>
+          <span>Name</span>
+          <input
+            type='text'
+            value={width}
+            disabled
+          />
         </section>
       </Fragment>
     )
@@ -57,8 +82,9 @@ export default class StateComponent extends React.Component {
 
 // export default function StateFunctionComponent() {
 export function StateFunctionComponent() {
-  // TODO:  name & age 
-  
+  // TODO:  name & age change
+  // TODO: update document title with name & age
+  // TODO: useEffect()  width resize
 
   return (
     <Fragment>
@@ -66,14 +92,22 @@ export function StateFunctionComponent() {
         <span>Name</span>
         <input
           type='text'
-          value={name}
-          onChange={handleNameChange}
+          value={}
+          onChange={}
         />
       </section>
       <section className='row'>
-          <span>Age: {age} </span>  
-          <button onClick={handleAgeChange}>Increment </button>
-        </section>
+        <span>Age: {} </span>
+        <button onClick={}>Increment </button>
+      </section>
+      <section className='row'>
+        <span>Name</span>
+        <input
+          type='text'
+          value={}
+          disabled
+        />
+      </section>
     </Fragment>
   )
 }
