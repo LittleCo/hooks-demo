@@ -5,20 +5,26 @@ import Ref from './hooksDemo/Ref'
 import Memo from './hooksDemo/useMemo'
 import CallBack from './hooksDemo/useCallback'
 import LayoutEffect from './hooksDemo/useLayoutEffect'
+
 // import StateComponent from './example/hook'
+
+import GrudgeApplication from './example/grudges/Application'
 import './App.css';
+import './grudge.css'
 
 function App() {
   return (
     <div className="App">
       {/* <StateComponent /> */}
-      <Ref />
+
+      {/* <Ref />
       <hr />
       <Memo />
       <hr />
-      {/* <CallBack /> */}
+      <CallBack />
       <hr />
-      <LayoutEffect />
+      <LayoutEffect /> */}
+      <GrudgeApplication />
     </div>
   );
 }
