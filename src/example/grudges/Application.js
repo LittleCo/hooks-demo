@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import Grudges from './Grudges'
 import NewGrudge from './NewGrudge'
 
+// TODO: 使用 useReducer 重构
+// TODO: memo & useCallback 优化性能
 import initialState from './initialState'
 
 import id from 'uuid/dist/v4'
