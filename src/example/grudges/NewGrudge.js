@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
+import { GrudegContext } from './GrudgeContext';
 
-const NewGrudge = React.memo(({ onSubmit }) => {
+const NewGrudge = React.memo(() => {
+  const { addGrudge } = React.useContext(GrudegContext)
+
   const [person, setPerson] = useState('');
   const [reason, setReason] = useState('');
 
@@ -8,11 +11,11 @@ const NewGrudge = React.memo(({ onSubmit }) => {
 
   const handleChange = event => {
     event.preventDefault();
-    onSubmit({ person, reason });
+    addGrudge({ person, reason });
   };
 
   return (
-    <form className="NewGrudge" onSubmit={handleChange}>
+    <form className="NewGrudge" addGrudge={handleChange}>
       <input
         className="NewGrudge-input"
         placeholder="Person"

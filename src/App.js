@@ -9,24 +9,28 @@ import LayoutEffect from './hooksDemo/useLayoutEffect'
 // import StateComponent from './example/hook'
 
 import GrudgeApplication from './example/grudges/Application'
+import { GrudgeProvider } from './example/grudges/GrudgeContext'
+
 import './App.css';
 import './grudge.css'
 
 function App() {
-  return (
-    <div className="App">
-      {/* <StateComponent /> */}
+    return (
+        <div className="App">
+            {/* <StateComponent /> */}
 
-      {/* <Ref />
-      <hr />
-      <Memo />
-      <hr />
-      <CallBack />
-      <hr />
-      <LayoutEffect /> */}
-      <GrudgeApplication />
-    </div>
-  );
+            {/* <Ref />
+            <hr />
+            <Memo />
+            <hr />
+            <CallBack /> 
+            <hr />
+            <LayoutEffect /> */}
+            <GrudgeProvider>
+                <GrudgeApplication />
+            </GrudgeProvider>
+        </div>
+    );
 }
 
 export default App;
