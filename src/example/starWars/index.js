@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useReducer } from 'react';
 
 import CharacterList from './CharacterList';
 import './styles.scss';
 import endpoint from './endpoint';
 
 const initialState = {
-  result: null,
+  characters: [],
   loading: true,
   error: null,
 };
@@ -13,7 +13,7 @@ const initialState = {
 const fetchReducer = (state, action) => {
   if (action.type === 'LOADING') {
     return {
-      result: null,
+      characters: [],
       loading: true,
       error: null,
     };
@@ -21,7 +21,7 @@ const fetchReducer = (state, action) => {
 
   if (action.type === 'RESPONSE_COMPLETE') {
     return {
-      result: action.payload.response,
+      characters: action.payload.characters,
       loading: false,
       error: null,
     };
@@ -29,7 +29,7 @@ const fetchReducer = (state, action) => {
 
   if (action.type === 'ERROR') {
     return {
-      result: null,
+      characters: [],
       loading: false,
       error: action.payload.error,
     };
@@ -39,7 +39,7 @@ const fetchReducer = (state, action) => {
 };
 
 const useFetch = url => {
-  const [state, dispatch] = React.useReducer(fetchReducer, initialState);
+  const [state, dispatch] = useReducer(fetchReducer, initialState);
 
   useEffect(() => {
     dispatch({ type: 'LOADING' });
@@ -48,7 +48,7 @@ const useFetch = url => {
       try {
         const response = await fetch(url);
         const data = await response.json();
-        dispatch({ type: 'RESPONSE_COMPLETE', payload: { response: data } });
+        dispatch({ type: 'RESPONSE_COMPLETE', payload: { characters: data.characters } });
       } catch (error) {
         dispatch({ type: 'ERROR', payload: { error } });
       }
@@ -57,12 +57,13 @@ const useFetch = url => {
     fetchUrl();
   }, []);
 
-  return [state.result, state.loading, state.error];
+  return [state, dispatch];
 };
 
 const Application = () => {
-  const [response, loading, error] = useFetch(endpoint + '/characters');
-  const characters = (response && response.characters) || [];
+  const [state, dispatch] = useFetch(endpoint + '/characters');
+  console.log(state)
+  const { characters, loading, error } = state;
 
   return (
     <div className="Application">
