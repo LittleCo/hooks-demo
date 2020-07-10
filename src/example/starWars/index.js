@@ -42,10 +42,10 @@ const fetchReducer = (state, action) => {
     return state;
 };
 
-async function fetchCharacters(url, dispatch) {
+async function fetchCharacters(dispatch) {
     dispatch({ type: 'LOADING' });
     try {
-        const response = await fetch(url);
+        const response = await fetch(endpoint + '/characters');
         const data = await response.json();
         dispatch({ type: 'RESPONSE_COMPLETE', payload: { characters: data.characters } });
     } catch (error) {
@@ -56,10 +56,6 @@ async function fetchCharacters(url, dispatch) {
 
 const useThunkReducer = (reducer, initialState) => {
     const [state, dispatch] = useReducer(reducer, initialState)
-
-    useEffect(() => {
-        fetchCharacters(endpoint + '/characters', dispatch)
-    }, [])
 
     const enhancedDispatch = React.useCallback(action => {
         console.log(action);
@@ -78,6 +74,11 @@ const useThunkReducer = (reducer, initialState) => {
 const Application = () => {
     const [state, dispatch] = useThunkReducer(fetchReducer, initialState);
     console.log(state)
+
+    useEffect(() => {
+        dispatch(fetchCharacters);
+    }, [])
+
     const { characters, loading, error } = state;
 
     return (
